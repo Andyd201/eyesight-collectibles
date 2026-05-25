@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { FEATURED_PRODUCTS, HOT_SINGLES } from "@/lib/mockData";
 import ProductCard from "@/components/ui/ProductCard";
@@ -9,7 +10,7 @@ const ALL = [
   ...HOT_SINGLES.map(s => ({ ...s, category: "single", image: null, originalPrice: null, badge: null, stock: 1 })),
 ];
 
-export default function SearchPage() {
+function SearchResults() {
   const params = useSearchParams();
   const q      = params.get("q") ?? "";
 
@@ -23,7 +24,7 @@ export default function SearchPage() {
     : [];
 
   return (
-    <div className="min-h-screen pt-24 pb-16 px-4 sm:px-6 max-w-7xl mx-auto">
+    <>
       <div className="mb-10">
         <p className="section-label">Search results</p>
         <h1 className="section-title">
@@ -57,6 +58,21 @@ export default function SearchPage() {
           {results.map(p => <ProductCard key={p.id} product={p} />)}
         </div>
       )}
+    </>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <div className="min-h-screen pt-24 pb-16 px-4 sm:px-6 max-w-7xl mx-auto">
+      <Suspense fallback={
+        <div className="space-y-4">
+          <div className="h-8 w-48 bg-surface-2 rounded animate-pulse" />
+          <div className="h-12 w-64 bg-surface-2 rounded animate-pulse" />
+        </div>
+      }>
+        <SearchResults />
+      </Suspense>
     </div>
   );
 }

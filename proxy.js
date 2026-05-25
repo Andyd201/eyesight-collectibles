@@ -7,7 +7,7 @@ const PROTECTED = ["/account", "/checkout"];
 // ─── Auth routes (redirect to /account if already logged in) ─────────────────
 const AUTH_ROUTES = ["/auth/login", "/auth/signup"];
 
-export async function middleware(request) {
+export async function proxy(request) {
   const { pathname } = request.nextUrl;
 
   // 1. Refresh session + get user & supabase client
