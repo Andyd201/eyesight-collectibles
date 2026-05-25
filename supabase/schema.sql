@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS graded_cards (
 -- ─── ORDERS ──────────────────────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS orders (
   id                  UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  user_id             UUID NOT NULL REFERENCES auth.users(id) ON DELETE RESTRICT,
+  user_id             UUID REFERENCES auth.users(id) ON DELETE SET NULL,  -- nullable: supports guest checkout
   status              order_status NOT NULL DEFAULT 'pending',
   subtotal            NUMERIC(10, 2) NOT NULL,
   shipping_cost       NUMERIC(10, 2) NOT NULL DEFAULT 0,

@@ -109,9 +109,12 @@ ALTER TABLE orders ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "orders: owner read"
   ON orders FOR SELECT USING (auth.uid() = user_id);
 
--- Users can create their own orders
-CREATE POLICY "orders: owner insert"
-  ON orders FOR INSERT WITH CHECK (auth.uid() = user_id);
+-- Anyone (logged in OR guest) can create an order.
+-- Guest orders have user_id = NULL; authenticated orders link to the user.
+CREATE POLICY "orders: insert"
+  ON orders FOR INSERT WITH CHECK (
+    user_id IS NULL OR auth.uid() = user_id
+  );
 
 -- Users cannot update or delete orders — only admins can (for status updates)
 CREATE POLICY "orders: admin read all"
