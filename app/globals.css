@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base ──────────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+
+body {
+  @apply bg-bg text-white font-body antialiased;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(124,58,237,0.12), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(6,182,212,0.05), transparent);
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: #07070F; }
+::-webkit-scrollbar-thumb { background: #2A2A4A; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #7C3AED; }
+
+/* ─── Glass card ─────────────────────────────────────────── */
+@layer components {
+  .glass {
+    @apply bg-glass backdrop-blur-md border border-border rounded-xl shadow-glass;
+  }
+  .glass-hover {
+    @apply glass transition-all duration-300 hover:border-neon/40 hover:shadow-neon-sm;
+  }
+
+  /* Neon button */
+  .btn-neon {
+    @apply relative px-6 py-2.5 rounded-lg font-body font-semibold text-sm
+           bg-neon text-white transition-all duration-200
+           hover:shadow-neon hover:scale-[1.02] active:scale-[0.98];
+  }
+  .btn-outline {
+    @apply px-6 py-2.5 rounded-lg font-body font-semibold text-sm
+           border border-border text-subtle
+           transition-all duration-200
+           hover:border-neon/50 hover:text-white hover:bg-neon/10;
+  }
+  .btn-gold {
+    @apply px-6 py-2.5 rounded-lg font-body font-semibold text-sm
+           bg-gold text-bg transition-all duration-200
+           hover:shadow-gold hover:scale-[1.02] active:scale-[0.98];
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-body font-semibold;
+  }
+  .badge-neon  { @apply badge bg-neon/20 text-neon border border-neon/30; }
+  .badge-gold  { @apply badge bg-gold/20 text-gold border border-gold/30; }
+  .badge-cyan  { @apply badge bg-neon-2/20 text-neon-2 border border-neon-2/30; }
+  .badge-red   { @apply badge bg-red-500/20 text-red-400 border border-red-500/30; }
+  .badge-green { @apply badge bg-green-500/20 text-green-400 border border-green-500/30; }
+
+  /* Section heading */
+  .section-label {
+    @apply font-mono text-xs uppercase tracking-widest text-neon mb-2;
+  }
+  .section-title {
+    @apply font-display text-4xl md:text-5xl text-white tracking-wide;
+  }
+
+  /* Card shimmer loading */
+  .shimmer {
+    background: linear-gradient(90deg, #15152A 25%, #1E1E35 50%, #15152A 75%);
+    background-size: 200% 100%;
+    @apply animate-shimmer;
+  }
+}
+
+/* ─── Noise texture ──────────────────────────────────────── */
+.noise::after {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ─── Pokéball grid bg ───────────────────────────────────── */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ─── Card hover 3D tilt (JS-driven) ────────────────────── */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease;
+}

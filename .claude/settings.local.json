@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\andyd\\\\OneDrive\\\\Documents\\\\Claude\\\\Projects\\\\Eyesight\\\\eyesight-collectibles\\\\app\\\\api\\\\product\\\\[id]\")",
+      "Bash(Out-Null)"
+    ]
+  }
+}
